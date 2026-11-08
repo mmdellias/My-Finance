@@ -1,0 +1,913 @@
+/* ==========================================================================
+   myFinance — folha de estilo
+   ========================================================================== */
+
+:root {
+  --fundo: #f4f6fb;
+  --cartao: #ffffff;
+  --texto: #1f2430;
+  --texto-suave: #6b7280;
+  --borda: #e5e8f0;
+  --primaria: #2563eb;
+  --primaria-escura: #1d4ed8;
+  --necessidades: #f59e0b;
+  --desejos: #ec4899;
+  --economia: #10b981;
+  --erro: #dc2626;
+  --sucesso: #059669;
+  --sombra: 0 6px 24px rgba(31, 36, 48, 0.07);
+  --raio: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ------------------------------ Cabeçalho ------------------------------ */
+.topo {
+  background: linear-gradient(135deg, var(--primaria) 0%, var(--primaria-escura) 100%);
+  color: #fff;
+  padding: 34px 20px 28px;
+  text-align: center;
+}
+
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.marca-icone {
+  font-size: 1.6rem;
+}
+
+.tagline {
+  margin: 8px 0 0;
+  opacity: 0.9;
+  font-size: 1rem;
+}
+
+/* ------------------------------ Conteúdo ------------------------------ */
+.conteudo {
+  max-width: 860px;
+  margin: -18px auto 40px;
+  padding: 0 16px;
+  display: grid;
+  gap: 20px;
+}
+
+.cartao {
+  background: var(--cartao);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  padding: 26px;
+}
+
+.cartao h1 {
+  margin: 0 0 20px;
+  font-size: 1.4rem;
+}
+
+.cartao h2 {
+  margin: 0 0 18px;
+  font-size: 1.2rem;
+}
+
+/* ------------------------------ Campos ------------------------------ */
+.campo {
+  margin-bottom: 20px;
+}
+
+.campo label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 11px 13px;
+  font-size: 1rem;
+  border: 1.5px solid var(--borda);
+  border-radius: 10px;
+  background: #fbfcfe;
+  color: var(--texto);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  font-family: inherit;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: var(--primaria);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background: #fff;
+}
+
+/* ------------------------------ Percentuais ------------------------------ */
+.percentuais {
+  border: 1.5px solid var(--borda);
+  border-radius: 12px;
+  padding: 16px 16px 12px;
+  margin: 0 0 20px;
+}
+
+.percentuais legend {
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0 6px;
+}
+
+.dica {
+  font-weight: 400;
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+}
+
+.pct-linha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.pct-linha label {
+  font-size: 0.95rem;
+}
+
+.pct-entrada {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pct-entrada input {
+  width: 92px;
+  text-align: right;
+}
+
+.sinal {
+  color: var(--texto-suave);
+  font-weight: 600;
+}
+
+.pct-total {
+  border-top: 1px dashed var(--borda);
+  margin-top: 8px;
+  padding-top: 10px;
+  text-align: right;
+  font-size: 0.95rem;
+  color: var(--texto-suave);
+}
+
+.pct-total.ok strong {
+  color: var(--sucesso);
+}
+
+.pct-total.ruim strong {
+  color: var(--erro);
+}
+
+/* ------------------------------ Botões ------------------------------ */
+.acoes {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.botao {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.05s;
+  font-family: inherit;
+}
+
+.botao:active {
+  transform: translateY(1px);
+}
+
+.botao.primario {
+  background: var(--primaria);
+  color: #fff;
+}
+
+.botao.primario:hover {
+  background: var(--primaria-escura);
+}
+
+.botao.secundario {
+  background: #eef1f7;
+  color: var(--texto);
+}
+
+.botao.secundario:hover {
+  background: #e2e6ef;
+}
+
+.largura-total {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* ------------------------------ Mensagens ------------------------------ */
+.erro {
+  color: var(--erro);
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 14px 0 0;
+  font-size: 0.92rem;
+}
+
+.sucesso {
+  color: var(--sucesso);
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 12px 0 0;
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+/* ------------------------------ Resultados ------------------------------ */
+.resumo-principal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.resumo-item {
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  border: 1px solid var(--borda);
+}
+
+.resumo-item.destaque {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.resumo-item.economia {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+}
+
+.resumo-rotulo {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+  margin-bottom: 4px;
+}
+
+.resumo-valor {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.resumo-item.destaque .resumo-valor {
+  color: var(--primaria-escura);
+}
+
+.resumo-item.economia .resumo-valor {
+  color: var(--sucesso);
+}
+
+.detalhes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.detalhes li {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: #fbfcfe;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+.detalhe-pct {
+  color: var(--texto-suave);
+  font-variant-numeric: tabular-nums;
+}
+
+.detalhe-valor {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  min-width: 110px;
+  text-align: right;
+}
+
+/* ------------------------------ Barra ------------------------------ */
+.barra {
+  display: flex;
+  height: 16px;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 18px;
+  background: #eef1f7;
+}
+
+.barra-part {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.barra-necessidades {
+  background: var(--necessidades);
+}
+
+.barra-desejos {
+  background: var(--desejos);
+}
+
+.barra-economia {
+  background: var(--economia);
+}
+
+/* ------------------------------ Histórico ------------------------------ */
+.vazio {
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.historico {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.historico li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  background: #fbfcfe;
+  flex-wrap: wrap;
+}
+
+.hist-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hist-data {
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+
+.hist-salario {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.hist-detalhe {
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+}
+
+.hist-valores {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.hist-economia {
+  color: var(--sucesso);
+  font-weight: 600;
+}
+
+.botao-excluir {
+  background: transparent;
+  border: 1.5px solid #fecaca;
+  color: var(--erro);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: inherit;
+}
+
+.botao-excluir:hover {
+  background: #fef2f2;
+}
+
+/* ------------------------------ Rodapé ------------------------------ */
+.rodape {
+  text-align: center;
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+  padding: 0 16px 30px;
+}
+
+/* ------------------------------ Responsivo ------------------------------ */
+@media (max-width: 560px) {
+  .cartao {
+    padding: 20px;
+  }
+
+  .resumo-principal {
+    grid-template-columns: 1fr;
+  }
+
+  .resumo-valor {
+    font-size: 1.3rem;
+  }
+
+  .detalhe-valor {
+    min-width: auto;
+  }
+
+  .historico li {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hist-valores {
+    justify-content: space-between;
+  }
+}
+
+/* ==========================================================================
+   Cabeçalho com sessão (chip do perfil)
+   ========================================================================== */
+.linha-topo {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.topo .marca {
+  margin: 0;
+}
+
+.sessao {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chip-perfil {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  border-radius: 999px;
+  padding: 5px 14px 5px 6px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.chip-perfil:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.chip-nome {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.link-sair {
+  color: #fff;
+  font-size: 0.88rem;
+  text-decoration: none;
+  opacity: 0.85;
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.6);
+}
+
+.link-sair:hover {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Avatares (foto ou letra inicial)
+   ========================================================================== */
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+  color: #fff;
+  font-weight: 700;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.avatar-chip {
+  width: 30px;
+  height: 30px;
+  font-size: 0.95rem;
+}
+
+.avatar-grande {
+  width: 96px;
+  height: 96px;
+  font-size: 2.3rem;
+}
+
+#modal-avatar {
+  width: 84px;
+  height: 84px;
+  font-size: 2rem;
+}
+
+/* ==========================================================================
+   Tela de perfis
+   ========================================================================== */
+.subtitulo {
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+  margin: -10px 0 20px;
+}
+
+.grade-perfis {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 16px;
+}
+
+.card-perfil {
+  position: relative;
+}
+
+.card-corpo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 22px 14px 18px;
+  background: #fbfcfe;
+  border: 2px solid var(--borda);
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+
+.card-corpo:hover {
+  transform: translateY(-3px);
+  border-color: var(--primaria);
+  box-shadow: var(--sombra);
+}
+
+.card-nome {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--texto);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-meta {
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+
+.card-engrenagem {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--borda);
+  background: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s;
+}
+
+.card-perfil:hover .card-engrenagem,
+.card-engrenagem:focus {
+  opacity: 1;
+}
+
+.card-engrenagem:hover {
+  background: #eef1f7;
+}
+
+.card-novo {
+  width: 100%;
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  border: 2px dashed var(--borda);
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--texto-suave);
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.card-novo:hover {
+  border-color: var(--primaria);
+  color: var(--primaria);
+  background: #eff6ff;
+}
+
+.sinal-novo {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.rotulo-novo {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Modal de perfil
+   ========================================================================== */
+.modal-fundo {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 50;
+}
+
+.modal-fundo[hidden] {
+  display: none;
+}
+
+.modal {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 26px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
+  max-height: 92vh;
+  overflow-y: auto;
+}
+
+.modal h2 {
+  margin: 0 0 18px;
+  font-size: 1.2rem;
+}
+
+.linha-foto {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.botoes-foto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.botao.mini {
+  padding: 8px 14px;
+  font-size: 0.88rem;
+}
+
+.dica-foto {
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+}
+
+.rotulo-cor {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.seletor-cores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.cor {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.cor:hover {
+  transform: scale(1.12);
+}
+
+.cor.ativa {
+  outline-color: var(--texto);
+}
+
+.botao.perigo {
+  background: #fff;
+  color: var(--erro);
+  border: 1.5px solid #fecaca;
+}
+
+.botao.perigo:hover {
+  background: #fef2f2;
+}
+
+.botao:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* ==========================================================================
+   Formulário: mês de referência e modo edição
+   ========================================================================== */
+.titulo-linha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.titulo-linha h1 {
+  margin: 0;
+}
+
+.selo-edicao {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 0.82rem;
+}
+
+.selo-edicao b {
+  text-transform: uppercase;
+}
+
+.campo.duplo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.campo.duplo label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+
+.cartao.editando {
+  border-color: #fde68a;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.14), var(--sombra);
+}
+
+/* ==========================================================================
+   Histórico: mês + botões editar/excluir
+   ========================================================================== */
+.hist-mes {
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-transform: capitalize;
+}
+
+.hist-acoes {
+  display: flex;
+  gap: 8px;
+}
+
+.botao-editar {
+  background: #eff6ff;
+  border: 1.5px solid #bfdbfe;
+  color: var(--primaria-escura);
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.botao-editar:hover {
+  background: #dbeafe;
+}
+
+.historico .item-mes {
+  border-color: var(--borda);
+}
+
+.historico .item-mes.ativo {
+  border-color: var(--primaria);
+  background: #eff6ff;
+}
+
+.historico .item-mes.ativo .hist-mes {
+  color: var(--primaria-escura);
+}
+
+/* ==========================================================================
+   Responsivo dos novos elementos
+   ========================================================================== */
+@media (max-width: 560px) {
+  .linha-topo {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .campo.duplo {
+    grid-template-columns: 1fr;
+  }
+
+  .grade-perfis {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .card-engrenagem {
+    opacity: 1;
+  }
+
+  .linha-foto {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .historico .item-mes {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hist-acoes {
+    justify-content: flex-end;
+  }
+}

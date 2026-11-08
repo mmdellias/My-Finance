@@ -1,0 +1,17 @@
+{
+  "name": "myfinance",
+  "version": "1.0.0",
+  "description": "Calculadora pessoal de finanças: salário, quanto gastar e economizar.",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "tunel": "node scripts/tunel.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}

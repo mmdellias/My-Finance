@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>myFinance — Calculadora de Finanças Pessoais</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topo">
+    <div class="linha-topo">
+      <div class="marca">
+        <span class="marca-icone">💰</span>
+        <span class="marca-nome">myFinance</span>
+      </div>
+
+      <div class="sessao" id="sessao" hidden>
+        <button type="button" class="chip-perfil" id="btn-trocar" title="Trocar de perfil">
+          <span class="avatar avatar-chip" id="chip-avatar"></span>
+          <span class="chip-nome" id="chip-nome"></span>
+        </button>
+        <a class="link-sair" href="/logout">Sair</a>
+      </div>
+    </div>
+    <p class="tagline">Calcule quanto gastar e quanto economizar do seu salário</p>
+  </header>
+
+  <!-- ================== TELA DE PERFIS ================== -->
+  <main class="conteudo" id="tela-perfis" hidden>
+    <section class="cartao">
+      <h1>Escolha um perfil</h1>
+      <p class="subtitulo">Cada perfil guarda o próprio salário, meses e histórico.</p>
+      <div class="grade-perfis" id="grade-perfis"></div>
+    </section>
+  </main>
+
+  <!-- ================== APP PRINCIPAL ================== -->
+  <main class="conteudo" id="tela-app" hidden>
+    <!-- ---------------- Formulário ---------------- -->
+    <section class="cartao" id="cartao-form" aria-labelledby="titulo-form">
+      <div class="titulo-linha">
+        <h1 id="titulo-form">Monte seu orçamento</h1>
+        <span class="selo-edicao" id="selo-edicao" hidden>Editando <b id="selo-mes"></b></span>
+      </div>
+
+      <form id="form-orcamento" novalidate>
+        <div class="campo duplo">
+          <div>
+            <label for="competencia">Mês de referência</label>
+            <input type="month" id="competencia" required />
+          </div>
+          <div>
+            <label for="salario">Salário mensal (R$)</label>
+            <input type="number" id="salario" min="0" step="0.01" placeholder="Ex.: 5000" required />
+          </div>
+        </div>
+
+        <fieldset class="percentuais">
+          <legend>Distribuição do salário <span class="dica">(deve somar 100%)</span></legend>
+
+          <div class="pct-linha">
+            <label for="pct-necessidades">Necessidades</label>
+            <div class="pct-entrada">
+              <input type="number" id="pct-necessidades" min="0" max="100" step="0.5" value="50" required />
+              <span class="sinal">%</span>
+            </div>
+          </div>
+
+          <div class="pct-linha">
+            <label for="pct-desejos">Desejos</label>
+            <div class="pct-entrada">
+              <input type="number" id="pct-desejos" min="0" max="100" step="0.5" value="30" required />
+              <span class="sinal">%</span>
+            </div>
+          </div>
+
+          <div class="pct-linha">
+            <label for="pct-economia">Economia</label>
+            <div class="pct-entrada">
+              <input type="number" id="pct-economia" min="0" max="100" step="0.5" value="20" required />
+              <span class="sinal">%</span>
+            </div>
+          </div>
+
+          <div class="pct-total" id="pct-total">
+            Total: <strong>100%</strong>
+          </div>
+        </fieldset>
+
+        <div class="acoes">
+          <button type="submit" class="botao primario" id="btn-salvar">Salvar mês</button>
+          <button type="button" class="botao secundario" id="btn-cancelar-edicao" hidden>Cancelar edição</button>
+          <button type="button" class="botao secundario" id="btn-limpar">Limpar</button>
+        </div>
+
+        <p class="erro" id="erro-form" role="alert" hidden></p>
+        <p class="sucesso" id="msg-sucesso" role="status" hidden></p>
+      </form>
+    </section>
+
+    <!-- ---------------- Resultados ---------------- -->
+    <section class="cartao" id="painel-resultados" aria-live="polite" hidden>
+      <h2>Resultado</h2>
+
+      <div class="resumo-principal">
+        <div class="resumo-item destaque">
+          <span class="resumo-rotulo">Você pode gastar</span>
+          <span class="resumo-valor" id="valor-gastar">R$ 0,00</span>
+        </div>
+        <div class="resumo-item economia">
+          <span class="resumo-rotulo">Você economiza</span>
+          <span class="resumo-valor" id="valor-economizar">R$ 0,00</span>
+        </div>
+      </div>
+
+      <ul class="detalhes" id="detalhes">
+        <li>
+          <span class="detalhe-rotulo">Necessidades</span>
+          <span class="detalhe-pct" id="det-necessidades-pct">50%</span>
+          <span class="detalhe-valor" id="det-necessidades-valor">R$ 0,00</span>
+        </li>
+        <li>
+          <span class="detalhe-rotulo">Desejos</span>
+          <span class="detalhe-pct" id="det-desejos-pct">30%</span>
+          <span class="detalhe-valor" id="det-desejos-valor">R$ 0,00</span>
+        </li>
+        <li>
+          <span class="detalhe-rotulo">Economia</span>
+          <span class="detalhe-pct" id="det-economia-pct">20%</span>
+          <span class="detalhe-valor" id="det-economia-valor">R$ 0,00</span>
+        </li>
+      </ul>
+
+      <div class="barra" aria-hidden="true">
+        <div class="barra-part barra-necessidades" id="barra-necessidades"></div>
+        <div class="barra-part barra-desejos" id="barra-desejos"></div>
+        <div class="barra-part barra-economia" id="barra-economia"></div>
+      </div>
+    </section>
+
+    <!-- ---------------- Histórico por mês ---------------- -->
+    <section class="cartao" aria-labelledby="titulo-historico">
+      <h2 id="titulo-historico">Histórico por mês</h2>
+      <p class="vazio" id="historico-vazio">Nenhum mês cadastrado ainda.</p>
+      <ul class="historico" id="historico" hidden></ul>
+    </section>
+  </main>
+
+  <!-- ================== MODAL DE PERFIL ================== -->
+  <div class="modal-fundo" id="modal-perfil" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+      <h2 id="modal-titulo">Novo perfil</h2>
+
+      <div class="linha-foto">
+        <span class="avatar avatar-grande" id="modal-avatar"></span>
+        <div class="botoes-foto">
+          <label class="botao secundario mini" for="foto-input">Escolher foto</label>
+          <input type="file" id="foto-input" accept="image/jpeg,image/png,image/webp" hidden />
+          <button type="button" class="botao secundario mini" id="btn-remover-foto">Remover foto</button>
+          <span class="dica-foto">JPG, PNG ou WebP · até 5 MB</span>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="campo-nome">Nome</label>
+        <input type="text" id="campo-nome" maxlength="40" placeholder="Ex.: João, Maria, Pessoal" />
+      </div>
+
+      <div class="campo">
+        <span class="rotulo-cor">Cor</span>
+        <div class="seletor-cores" id="seletor-cores"></div>
+      </div>
+
+      <p class="erro" id="modal-erro" role="alert" hidden></p>
+
+      <div class="acoes">
+        <button type="button" class="botao primario" id="modal-salvar">Salvar</button>
+        <button type="button" class="botao secundario" id="modal-cancelar">Cancelar</button>
+        <button type="button" class="botao perigo" id="modal-excluir" hidden>Excluir perfil</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="rodape">
+    <p>myFinance — projeto pessoal · dados salvos localmente no seu computador</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

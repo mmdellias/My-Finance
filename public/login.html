@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entrar — myFinance</title>
+  <style>
+    :root {
+      --primaria: #2563eb;
+      --primaria-escura: #1d4ed8;
+      --fundo: #f4f6fb;
+      --texto: #1f2430;
+      --texto-suave: #6b7280;
+      --borda: #e5e8f0;
+      --erro: #dc2626;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: var(--texto);
+    }
+
+    .caixa {
+      width: 100%;
+      max-width: 380px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.28);
+      padding: 34px 30px 30px;
+      text-align: center;
+    }
+
+    .marca {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--primaria-escura);
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 1.25rem;
+    }
+
+    .texto {
+      margin: 0 0 22px;
+      color: var(--texto-suave);
+      font-size: 0.95rem;
+    }
+
+    form { text-align: left; }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .campo-senha {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 46px 12px 13px;
+      font-size: 1rem;
+      font-family: inherit;
+      border: 1.5px solid var(--borda);
+      border-radius: 10px;
+      background: #fbfcfe;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primaria);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+      background: #fff;
+    }
+
+    .olho {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 6px;
+      line-height: 1;
+    }
+
+    .botao {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      padding: 13px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      color: #fff;
+      background: var(--primaria);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .botao:hover { background: var(--primaria-escura); }
+    .botao:disabled { opacity: 0.7; cursor: wait; }
+
+    .erro {
+      margin: 16px 0 0;
+      color: var(--erro);
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    .dica {
+      margin: 18px 0 0;
+      font-size: 0.8rem;
+      color: var(--texto-suave);
+    }
+  </style>
+</head>
+<body>
+  <main class="caixa">
+    <div class="marca">My Finance</div>
+    <h1>Área restrita</h1>
+    <p class="texto">Digite a senha para acessar seu painel financeiro.</p>
+
+    <form id="form-login">
+      <label for="senha">Senha</label>
+      <div class="campo-senha">
+        <input
+          type="password"
+          id="senha"
+          name="senha"
+          placeholder="Sua senha"
+          autocomplete="current-password"
+          required
+          autofocus
+        />
+        <button type="button" class="olho" id="btn-olho" aria-label="Mostrar senha">👁️</button>
+      </div>
+
+      <button type="submit" class="botao" id="btn-entrar">Entrar</button>
+    </form>
+
+    <p class="erro" id="erro" role="alert" hidden></p>
+    <p class="dica">Acesso protegido — somente para quem tem a senha.</p>
+  </main>
+
+  <script>
+    const form = document.getElementById('form-login');
+    const input = document.getElementById('senha');
+    const erro = document.getElementById('erro');
+    const botao = document.getElementById('btn-entrar');
+    const olho = document.getElementById('btn-olho');
+
+    olho.addEventListener('click', () => {
+      const escondida = input.type === 'password';
+      input.type = escondida ? 'text' : 'password';
+      olho.textContent = escondida ? '🙈' : '👁️';
+      olho.setAttribute('aria-label', escondida ? 'Ocultar senha' : 'Mostrar senha');
+      input.focus();
+    });
+
+    input.addEventListener('input', () => { erro.hidden = true; });
+
+    form.addEventListener('submit', async (evento) => {
+      evento.preventDefault();
+      erro.hidden = true;
+      botao.disabled = true;
+      botao.textContent = 'Verificando…';
+
+      try {
+        const resposta = await fetch('/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ senha: input.value }),
+        });
+
+        const dados = await resposta.json().catch(() => ({}));
+
+        if (resposta.ok) {
+          window.location.href = '/';
+          return;
+        }
+
+        erro.textContent = dados.error || 'Não foi possível entrar.';
+        erro.hidden = false;
+        input.select();
+      } catch {
+        erro.textContent = 'Falha de conexão com o servidor.';
+        erro.hidden = false;
+      } finally {
+        botao.disabled = false;
+        botao.textContent = 'Entrar';
+      }
+    });
+  </script>
+</body>
+</html>
