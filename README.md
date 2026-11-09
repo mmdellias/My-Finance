@@ -1,4 +1,4 @@
-# myFinance 💰
+# myFinance
 
 Calculadora pessoal de finanças: digite seu salário, defina seus próprios
 percentuais e veja quanto você pode **gastar** e quanto **economiza** —
